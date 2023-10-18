@@ -1,20 +1,29 @@
-produto = input("Digite o nome do produto: ")
-quantidade = int(input("Digite a quantidade: "))
-valor = float(input("Digite o valor: "))
+def realizar_venda(qtd_vendida, valor_pago, produto):
+    if qtd_vendida > qtd_estoque:
+        print("Quantidade insuficiente em estoque")
+    else:
+        valor_total = qtd_vendida * valor
+        if valor_pago >= valor_total:
+            troco = valor_pago - valor_total
+            print(f"Venda realizada com sucesso!\nTroco: R${troco:.2f}")
+        else:
+            print("Valor pago é insuficiente")
 
-comprar = int(input(f"Quanto deseja comprar de {produto}? Digite ao lado: "))
 
-if comprar > quantidade:
-    print(f"Não é possível comprar mais do que {quantidade}")
+estoque = []
 
-custo_total = valor * comprar
+num = int(input("Digite o número de produtos que quer cadastrar: "))
 
-pagamento = float(input("Quanto vai pagar? Digite ao lado: "))
+for i in range(num):
+    nome = input("Digite o nome do produto: ")
+    qtd_estoque = int(input("Digite a quantidade em estoque: "))
+    valor = float(input("Digite o valor do produto: "))
+    produto = {nome, qtd_estoque, valor}
 
-if pagamento < custo_total:
-    print(f"R${custo_total} não é suficiente.")
-elif pagamento == custo_total:
-    print("Compra realizada com sucesso.")
-else:
-    troco = pagamento - custo_total
-    print(f"Compra realizada com sucesso. Seu troco é R${troco}")
+    qtd_vendida = int(input("Digite a quantidade a ser vendida: "))
+
+    if qtd_vendida > qtd_estoque:
+        print("Não pode realizar a venda")
+    else:
+        valor_pago = float(input("Digite o valor pago: "))
+        realizar_venda(qtd_vendida, valor_pago, produto)
